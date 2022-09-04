@@ -33,7 +33,6 @@ Node_t *insertAtIndex(Node_t *head, int index, int data)
     while (i != index - 1)
     {
         p = p->next;
-        //printf("Index %d: %d\n", i, p->data);
         i++;
     }
 
