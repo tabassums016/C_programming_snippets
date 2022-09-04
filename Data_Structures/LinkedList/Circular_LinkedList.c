@@ -7,22 +7,29 @@ typedef struct Node
     struct Node *next;
 } Node_t;
 
-void traverseLinkedList(Node_t *ptr)
+void traverseLinkedList(Node_t *head)
 {
-    while (ptr != NULL)
+    Node_t *ptr=head;
+    do
     {
         printf("ELement: %d\n", ptr->data);
         ptr = ptr->next;
-    }
+    }while (ptr != head);
 }
 // Case 1
 Node_t *insertAtStart(Node_t *head, int data)
 {
     Node_t *ptr = (Node_t *)malloc(sizeof(Node_t));
     ptr->data = data;
-
+    Node_t *p=head->next;
+    while(p->next!=head)
+    {
+        p=p->next;
+    }
+    p->next=ptr;
     ptr->next = head;
-    return ptr;
+    head=ptr; //making the new added elemt as head (i.e. First element)
+    return head;
 }
 
 Node_t *insertAtIndex(Node_t *head, int index, int data)
@@ -34,30 +41,11 @@ Node_t *insertAtIndex(Node_t *head, int index, int data)
     {
         p = p->next;
         i++;
-        if (p==NULL)
-        {
-            printf("Index greater the list size\n");
-            return head;
-        }
     }
 
     ptr->data = data;
     ptr->next = p->next;
     p->next = ptr;
-    return head;
-}
-Node_t *insertAtEnd(Node_t *head, int data)
-{
-    Node_t *ptr = (Node_t *)malloc(sizeof(Node_t));
-    Node_t *p = head;
-    int i = 0;
-    while (p->next!= NULL)
-    {
-        p = p->next;
-    }
-    ptr->data = data;
-    p->next=ptr;
-    ptr->next = NULL;
     return head;
 }
 
@@ -75,18 +63,27 @@ int main()
     Node_t *head_1;
     Node_t *head_2;
     Node_t *head_3;
+    Node_t *head_4;
+    Node_t *head_5;
 
     // memory allocated in heap memory
     head_1 = (Node_t *)malloc(sizeof(Node_t));
     head_2 = (Node_t *)malloc(sizeof(Node_t));
     head_3 = (Node_t *)malloc(sizeof(Node_t));
+    head_4 = (Node_t *)malloc(sizeof(Node_t));
+    head_5 = (Node_t *)malloc(sizeof(Node_t));
 
     head_1->data = 23;
     head_1->next = head_2;
     head_2->data = 6;
     head_2->next = head_3;
-    head_3->data = 11;
-    head_3->next = NULL;
+    head_3->data = 20;
+    head_3->next = head_4;
+    head_4->data = 21;
+    head_4->next = head_5;
+    head_5->data = 11;
+    head_5->next = head_1;
+
 
     // traverse the list
     printf("Original list\n");
@@ -94,17 +91,12 @@ int main()
 
     // insert element at the start
     printf("Insert at Start:\n");
-    head_1 = insertAtStart(head_1, 196);
+    head_1 = insertAtStart(head_1, 19);
     traverseLinkedList(head_1);
 
     // insert element at index
     printf("Inserting at index:\n");
-    head_1 = insertAtIndex(head_1, 5, 77);
-    traverseLinkedList(head_1);
-
-    // insert element at the end
-    printf("Insert at End:\n");
-    head_1 = insertAtEnd(head_1, 100);
+    head_1 = insertAtIndex(head_1, 7, 77);
     traverseLinkedList(head_1);
 
     // insert element after a node
