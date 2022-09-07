@@ -1,3 +1,9 @@
+/* 
+Take element from start as key  starting from
+check with the elements in reverse direction starting from the elemnt before the key
+if greater, shift right
+insert the key when loop ends where blank space is left
+*/
 #include <stdio.h>
 
 void printArray(int *arr, int len)
@@ -30,4 +36,5 @@ int main()
     int arr[10] = {17, 6, 18, 89, 9};
     insertionSort(arr, 5);
     printArray(arr, 5);
+    return 0;
 }
